@@ -21,9 +21,9 @@ void readAll();
 void generateRecords();
 char *randIndex();
 void deleteAllData();
-void deleteRecord() ;
-void updateRecord();
-void deleteRecord();
+//void deleteRecord() ;
+//void updateRecord();
+//void deleteRecord();
 
 // void generateData();
 
@@ -59,7 +59,7 @@ int main(){
             deleteAllData();
             break;
         case 4:
-            deleteRecord() ;
+            //deleteRecord() ;
             break;
         case 5:
             generateRecords();
@@ -104,10 +104,10 @@ void addnewone(student_marks student){
     FILE *data;
     int writeFile;
 
-    data = fopen("student_marks.csv" , "a+");
+    data = fopen("student_marks.dat" , "a+");
     if (data == NULL){
         printf("Failed to open file for adding new record");
-        perror("student_marks.csv");
+        perror("student_marks.dat");
         exit(1);
     }
 
@@ -115,7 +115,7 @@ void addnewone(student_marks student){
     if (writeFile < 0) 
     {
         printf("Failed to write data for adding new record \n Error No: %d\n", errno);
-        perror("student_marks.csv");
+        perror("student_marks.dat");
         exit(1);
     }
     
@@ -133,10 +133,10 @@ void readAll(){
                    "Assignment 02", "Project Marks", "Final Marks");
 
     printf("---------------------------------------------------------------------------------------------------------------------\n");
-    data = fopen("student_marks.csv" , "r");
+    data = fopen("student_marks.dat" , "r");
     if (data == NULL){
         printf("Failed to open file for reading all");
-        perror("student_marks.csv");
+        perror("student_marks.dat");
         exit(1);
     }
     while (1)
@@ -148,7 +148,7 @@ void readAll(){
         }
         if ((errno = ferror(data)) > 0)
         {
-            perror("fread student_marks.csv: ");
+            perror("fread student_marks.dat: ");
             printf("ferror: %d\n", errno);
             exit(1);
         }
@@ -217,7 +217,7 @@ char *randIndex(){
 
 void deleteAllData()
 {
-   if (remove("student_marks.csv") == 0)
+   if (remove("student_marks.dat") == 0)
       printf("Deleted successfully\n");
    else
       printf("Unable to delete the file");
