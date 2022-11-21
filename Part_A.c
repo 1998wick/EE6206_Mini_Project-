@@ -4,35 +4,81 @@
 #include <errno.h> 
 #include <time.h>
 
-
 typedef struct student_marks
 {
 char student_index[12];
-float assgnmt01_marks; //15%
-float assgnmt02_marks; //15%
-float project_marks; //20%
-float finalExam_marks; //50%
+float assgnmt01_marks; 
+float assgnmt02_marks; 
+float project_marks; 
+float finalExam_marks; 
 }student_marks;
 
+
+
 void addnewone();
+void inputNewStudent();
 void readAll();
 void generateRecords();
 char *randIndex();
+void deleteAllData();
+void deleteRecord() ;
+void updateRecord();
+void deleteRecord();
 
-
-// void updateRecord();
-// void deleteRecord();
 // void generateData();
 
-student_marks *marksPtr;
+int main(){
 
-void main(){
     int choice;
-    //addnewone();
-    generateRecords();
-    readAll();   
+
+    do
+    {   
+        printf("---------------------------------------------------------------------------------------------------------------------");
+        printf("\n Menu \n");
+        printf("---------------------------------------------------------------------------------------------------------------------\n");
+        printf("1. Add New Student\n");
+        printf("2. Read all \n");
+        printf("3. Delete All\n");
+        printf("4. Update Record \n");
+        printf("5. Generate 100 Records \n");
+        printf("6. Exit \n");
+        printf("---------------------------------------------------------------------------------------------------------------------\n");
+        printf("Enter Number : ");
+        scanf("%d", &choice);
+        printf("---------------------------------------------------------------------------------------------------------------------\n");
+
+        switch (choice)
+        {
+        case 1:
+            inputNewStudent();
+            break;
+        case 2:
+            readAll();
+            break;
+        case 3:
+            deleteAllData();
+            break;
+        case 4:
+            deleteRecord() ;
+            break;
+        case 5:
+            generateRecords();
+            break;
+        case 6:
+            exit(0);
+            break;
+        default:
+            printf("Invalid Choice \n");
+            break;
+        }
+    } while (choice != 6);
+
+return 0;
+
 
 }
+
+student_marks *marksPtr;
 
 void inputNewStudent(){
 
@@ -83,9 +129,10 @@ void readAll(){
     FILE *data;
     int errno;
 
-    printf("| %-6s | %-20s | %-20s | %-20s | %-20s | %-20s  | \n","count" ,"Student Index", "Assignment 01",
+    printf("| %-20s | %-20s | %-20s | %-20s | %-20s  | \n","Student Index", "Assignment 01",
                    "Assignment 02", "Project Marks", "Final Marks");
 
+    printf("---------------------------------------------------------------------------------------------------------------------\n");
     data = fopen("student_marks.csv" , "r");
     if (data == NULL){
         printf("Failed to open file for reading all");
@@ -108,12 +155,12 @@ void readAll(){
         else
         {
             printf("| %-20s | %-20.2f | %-20.2f | %-20.2f | %-20.2f  | \n", student.student_index, student.assgnmt01_marks,
-                   student.assgnmt02_marks, student.project_marks, student.finalExam_marks); // print record
+                   student.assgnmt02_marks, student.project_marks, student.finalExam_marks); 
         }
     }
 
     printf("\n\n");
-    fclose(data); // close file
+    fclose(data); 
     
 
 }
@@ -138,10 +185,10 @@ void generateRecords()
 }
 
 char *randIndex(){
-    const char charset[] = "1234567890";
+   
     char index[4];
     char perfix[] = "EG/2018/";
-
+    const char num[] = "1234567890";
     
 
     for (int i = 0; i < 12; i++)
@@ -153,8 +200,8 @@ char *randIndex(){
 
         else{
             
-            int data = rand() %(int)(sizeof charset - 1);
-            index[i] = charset[data];
+            int data = rand() %(int)(sizeof num - 1);
+            index[i] = num[data];
         }
         
         
@@ -165,3 +212,17 @@ char *randIndex(){
 
 
 }
+
+
+
+void deleteAllData()
+{
+   if (remove("student_marks.csv") == 0)
+      printf("Deleted successfully\n");
+   else
+      printf("Unable to delete the file");
+  
+}
+
+
+
